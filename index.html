@@ -74,8 +74,9 @@ svg.ic{flex:0 0 auto}
 
 /* karty wyjazdów */
 .tcard{position:relative;display:flex;align-items:stretch;background:var(--card);border-radius:18px;box-shadow:var(--shadow);margin:0 0 14px;cursor:pointer}
-.tcard .thumb{flex:0 0 40%;padding:14px 10px 14px 14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f3eee1,#e9e3d0);border-radius:18px 0 0 18px}
-.tcard .thumb .fr{width:100%;cursor:pointer}
+.tcard .thumb{flex:0 0 42%;padding:8px 0 8px 8px;display:flex;background:var(--card);border-radius:18px 0 0 18px}
+.tcard .thumb .fr{width:100%;cursor:pointer;display:flex;flex-direction:column;padding:4px 4px 12px;min-height:120px}
+.tcard .thumb .fr>img,.tcard .thumb .fr>.ph{flex:1;width:100%;height:100%;min-height:0;aspect-ratio:auto;object-fit:cover}
 .tcard .tinfo{flex:1;min-width:0;padding:16px 44px 14px 16px;display:flex;flex-direction:column}
 .tcard h3{font-size:1.15rem;font-weight:700;margin:0 0 4px;line-height:1.25;overflow-wrap:anywhere}
 .tcard .dates{color:var(--muted);font-size:.92rem}
@@ -93,13 +94,15 @@ svg.ic{flex:0 0 auto}
 .hero h1{font-family:'Caveat',cursive;font-weight:700;font-size:2.7rem;line-height:1.25;margin:0;overflow-wrap:anywhere}
 .hero-dates{margin-top:10px;font-weight:600;font-size:1rem}
 .hero-count{margin-top:12px;display:inline-flex;align-items:center;gap:6px;font-weight:600;opacity:.95}
-.hero-fr{flex:0 0 108px;width:108px;cursor:default;transform:rotate(3deg)}
-.hero-fr img{aspect-ratio:4/3}
+.hero.has-cover{background-size:cover;background-position:center;min-height:280px;display:flex;flex-direction:column;justify-content:space-between}
+.hero.has-cover::before{display:none}
+.hero.has-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,24,10,.45) 0%,rgba(20,24,10,.55) 55%,rgba(20,24,10,.72) 100%);z-index:1}
+.hero h1,.hero-dates,.hero-count{text-shadow:0 1px 6px rgba(0,0,0,.35)}
 .mk{background-image:linear-gradient(100deg,transparent 0,var(--mk1) 2%,var(--mk1) 98%,transparent 100%);padding:.04em .32em;margin:0 -.1em;border-radius:.5em .15em .45em .2em / .3em .2em .35em .2em;-webkit-box-decoration-break:clone;box-decoration-break:clone;color:var(--ink)}
 .mk.mk2{background-image:linear-gradient(100deg,transparent 0,var(--mk2) 2%,var(--mk2) 98%,transparent 100%);display:inline-block;transform:rotate(-.8deg);padding:.12em .5em}
 
 /* arkusz z zakładkami */
-.sheet{position:relative;margin-top:-26px;background:var(--surface);border-radius:26px 26px 0 0;padding:16px 16px 120px;min-height:55vh}
+.sheet{position:relative;z-index:3;margin-top:-26px;background:var(--surface);border-radius:26px 26px 0 0;padding:16px 16px 120px;min-height:55vh}
 .sheet.flat{margin-top:0;border-radius:0;padding-bottom:40px;min-height:0}
 .tabs{display:flex;gap:4px;overflow-x:auto;margin:0 0 16px;padding-bottom:2px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
@@ -190,6 +193,26 @@ textarea{min-height:150px;resize:vertical}
 .lb .prev{left:10px}.lb .next{right:10px}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;z-index:600;max-width:90vw;font-size:.92rem;text-align:center}
 @media (max-width:420px){.hero h1{font-size:2.3rem}.hero-fr{flex-basis:92px;width:92px}.tl-item{grid-template-columns:46px 22px 1fr}.tl::before{left:57px}.tl-dot{margin-left:5px}}
+
+/* wydarzenia z życia */
+.btnrow{display:flex;gap:10px}
+.btnrow .pbtn{flex:1;padding:14px 10px}
+.pbtn.alt{background:var(--terra);box-shadow:0 4px 12px rgba(181,83,45,.28)}
+.pbtn.alt:hover{filter:brightness(.92);background:var(--terra)}
+.filters{display:flex;gap:8px;margin:14px 0 0;flex-wrap:wrap}
+.filters .chip.on{background:var(--olive);color:#fff;border-color:var(--olive)}
+.catbadge{display:inline-flex;align-items:center;gap:6px;background:var(--olive-l);color:var(--olive-d);border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:600;margin-bottom:6px;align-self:flex-start}
+.catbadge.big{background:rgba(255,255,255,.88);color:#2d2a26;font-size:.9rem;padding:5px 12px;margin:0 0 10px}
+.fr .ph.ev{font-size:3rem}
+.seg{display:flex;gap:8px;margin-top:6px}
+.seg .chip{flex:1;justify-content:center}
+.seg .chip.on{background:var(--olive);color:#fff;border-color:var(--olive)}
+.cats{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.cats .chip{padding:7px 12px}
+.cats .chip.on{background:var(--olive);color:#fff;border-color:var(--olive)}
+.emojis{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.emojis button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:1.2rem;cursor:pointer}
+.emojis button.on{border-color:var(--olive);background:var(--olive-l)}
 </style>
 </head>
 <body>
@@ -201,7 +224,9 @@ const CONFIG = {
   TITLE: 'Nasz pamiętnik',
   SUPABASE_URL: 'https://kgsvqerhqqiheyrrfjra.supabase.co',
   SUPABASE_ANON_KEY: 'sb_publishable_OQomYCfXV1kTBRLTra2RSQ_JZrnEELd',
-  SHARED_EMAIL: 'pamietnik@wyjazdy.com'   // ten sam e-mail, który wpiszesz przy tworzeniu konta w Supabase
+  SHARED_EMAIL: 'pamietnik@wyjazdy.com',   // ten sam e-mail, który wpiszesz przy tworzeniu konta w Supabase
+  EVENTS: true,                            // czy można dodawać wydarzenia z życia (narodziny, zaręczyny...)
+  AUTHOR_KEY: 'pam_author'
 };
 /* ===================================== */
 
@@ -213,7 +238,8 @@ const notConfigured = CONFIG.SUPABASE_URL.startsWith('WKLEJ') || CONFIG.SUPABASE
 const sb = notConfigured ? null : supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
 let author = '';
-try { author = localStorage.getItem('pam_author') || ''; } catch (e) {}
+try { author = localStorage.getItem(CONFIG.AUTHOR_KEY) || ''; } catch (e) {}
+let homeFilter = 'all';
 let tripsAsc = false;   // lista wyjazdów: domyślnie od najnowszych
 let memAsc = true;      // oś czasu: domyślnie od najstarszych
 let curTab = 'os', lastTripId = null;
@@ -360,7 +386,7 @@ function pickPhotos(cb){
 }
 
 /* zapis z pominięciem kolumn, których baza jeszcze nie ma (np. edited_by, title) */
-const OPTIONAL_COLS = ['edited_by', 'title'];
+const OPTIONAL_COLS = ['edited_by', 'title', 'kind', 'category'];
 async function writeRow(table, row, id){
   const r = { ...row }, dropped = [];
   for (let k = 0; k <= OPTIONAL_COLS.length; k++){
@@ -372,6 +398,17 @@ async function writeRow(table, row, id){
   }
   return dropped;
 }
+
+/* ---------- wydarzenia z życia: kategorie ---------- */
+const PRESET_CATS = ['👶 Narodziny dziecka','💍 Zaręczyny','💒 Ślub','🎂 Urodziny','🏠 Nowy dom','🎓 Ukończenie szkoły','🥂 Rocznica','🐾 Nowy pupil','💼 Nowa praca'];
+const CAT_EMOJIS = ['⭐','❤️','🎉','🌸','🍾','🏆','✈️','🎁','👨‍👩‍👧','🌳','🕯️','🎶'];
+const isLife = t => CONFIG.EVENTS && t && t.kind === 'life';
+function catParts(c){
+  const m = String(c || '').match(/^(\S+)\s+(.+)$/);
+  return m ? { icon: m[1], name: m[2] } : { icon: '⭐', name: String(c || 'Wydarzenie') };
+}
+const catBadge = (t, big) => isLife(t) ? `<span class="catbadge${big ? ' big' : ''}">${esc(catParts(t.category).icon)} ${esc(catParts(t.category).name)}</span>` : '';
+const noun = t => isLife(t) ? 'wydarzenie' : 'wyjazd';
 
 /* ---------- drobne narzędzia interfejsu ---------- */
 function toast(msg){
@@ -468,7 +505,7 @@ function askName(change = false){
     const v = $('#nm').value.trim();
     if (!v) return;
     author = v;
-    try { localStorage.setItem('pam_author', v); } catch (err) {}
+    try { localStorage.setItem(CONFIG.AUTHOR_KEY, v); } catch (err) {}
     route();
   };
 }
@@ -502,13 +539,16 @@ async function viewHome(){
     sb.from('memories').select('trip_id,photos'),
   ]);
   if (t.error) return shell(`<p class="err">Błąd: ${esc(t.error.message)}</p>`);
-  const trips = t.data, counts = {};
+  const allTrips = t.data, counts = {};
+  const trips = CONFIG.EVENTS && homeFilter !== 'all' ? allTrips.filter(x => (homeFilter === 'life') === isLife(x)) : allTrips;
   (m.data || []).forEach(x => { counts[x.trip_id] = (counts[x.trip_id] || 0) + (x.photos || []).length; });
   const urls = await signed(trips.map(x => x.cover_path));
+  const hasLife = allTrips.some(isLife);
   const cards = trips.map((x, i) => `
     <div class="tcard" data-open="${x.id}" role="link" tabindex="0">
-      <div class="thumb"><figure class="fr wide" style="--r:${rot(i)}deg">${urls[x.cover_path] ? `<img src="${urls[x.cover_path]}" alt="">` : `<div class="ph">${esc((x.name || '?').trim().charAt(0).toUpperCase())}</div>`}</figure></div>
+      <div class="thumb"><figure class="fr wide" style="--r:${rot(i)}deg">${urls[x.cover_path] ? `<img src="${urls[x.cover_path]}" alt="">` : (isLife(x) ? `<div class="ph ev">${esc(catParts(x.category).icon)}</div>` : `<div class="ph">${esc((x.name || '?').trim().charAt(0).toUpperCase())}</div>`)}</figure></div>
       <div class="tinfo">
+        ${catBadge(x)}
         <h3>${esc(x.name)}</h3>
         <div class="dates">${esc(fmtRange(x.date_from, x.date_to, x.date_precision))}</div>
         <div class="tcount">${ICON.photo}${counts[x.id] || 0}</div>
@@ -516,13 +556,19 @@ async function viewHome(){
       <button class="kebab" data-k="${i}" aria-label="Menu">${ICON.more}</button>
     </div>`).join('');
   shell(`
-    <button class="pbtn" id="addTrip">${ICON.plus}Dodaj nowy wyjazd</button>
+    ${CONFIG.EVENTS ? `<div class="btnrow"><button class="pbtn" id="addTrip">${ICON.plus}Nowy wyjazd</button><button class="pbtn alt" id="addLife">${ICON.plus}Nowe wydarzenie</button></div>
+      <div class="filters">${[['all','Wszystko'],['trip','Wyjazdy'],['life','Wydarzenia']].map(([k, n]) => `<button class="chip${homeFilter === k ? ' on' : ''}" data-f="${k}">${n}</button>`).join('')}</div>`
+      : `<button class="pbtn" id="addTrip">${ICON.plus}Dodaj nowy wyjazd</button>`}
     ${trips.length > 1 ? `<div class="sortrow">
       <label class="sortsel" style="margin:0"><span>Sortuj:</span><select id="sortSel"><option value="desc">od najnowszych</option><option value="asc">od najstarszych</option></select>${ICON.chev}</label>
       <button class="sqbtn" id="sortBtn" aria-label="Zmień kolejność">${ICON.sort}</button>
     </div>` : '<div style="height:18px"></div>'}
-    ${trips.length ? cards : '<div class="empty"><b>Nie ma jeszcze żadnego wyjazdu</b>Dodaj pierwszy!</div>'}`);
-  $('#addTrip').onclick = () => openTripSheet(null);
+    ${trips.length ? cards : `<div class="empty"><b>${allTrips.length ? 'Nic w tej kategorii' : 'Nie ma jeszcze żadnego wyjazdu'}</b>Dodaj pierwszy!</div>`}`);
+  $('#addTrip').onclick = () => openTripSheet(null, 'trip');
+  if (CONFIG.EVENTS){
+    $('#addLife').onclick = () => openTripSheet(null, 'life');
+    app.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { homeFilter = b.dataset.f; viewHome(); });
+  }
   const ss = $('#sortSel');
   if (ss){
     ss.value = tripsAsc ? 'asc' : 'desc';
@@ -544,22 +590,54 @@ async function viewHome(){
 function tripMenuItems(trip, onOpen){
   const items = [];
   if (onOpen) items.push({ label: 'Otwórz', icon: ICON.open, onClick: onOpen });
-  items.push({ label: 'Edytuj wyjazd', icon: ICON.pen, onClick: () => openTripSheet(trip) });
+  items.push({ label: 'Edytuj ' + noun(trip), icon: ICON.pen, onClick: () => openTripSheet(trip) });
   items.push({ label: 'Pobierz na pamiątkę', icon: ICON.dl, onClick: () => exportDiary([trip.id], null) });
-  if (trip.created_by === author) items.push({ label: 'Usuń wyjazd', icon: ICON.trash, danger: true, onClick: () => deleteTrip(trip) });
+  if (trip.created_by === author) items.push({ label: 'Usuń ' + noun(trip), icon: ICON.trash, danger: true, onClick: () => deleteTrip(trip) });
   return items;
 }
 
 /* ---------- wyjazd: dodawanie / edycja ---------- */
-function openTripSheet(trip){
-  const sh = openSheet(trip ? 'Edytuj wyjazd' : 'Nowy wyjazd', `
-    <label>Nazwa wyjazdu<input id="tn" maxlength="80" placeholder="np. Toskania" value="${esc(trip ? trip.name : '')}"></label>
+async function openTripSheet(trip, kindArg){
+  let kind = CONFIG.EVENTS ? (trip ? (isLife(trip) ? 'life' : 'trip') : (kindArg || 'trip')) : 'trip';
+  let cat = trip && trip.category ? trip.category : PRESET_CATS[0];
+  let customIcon = CAT_EMOJIS[0];
+  let known = [];
+  if (CONFIG.EVENTS){
+    try { const r = await sb.from('trips').select('category'); known = [...new Set((r.data || []).map(x => x.category).filter(Boolean))].filter(c => !PRESET_CATS.includes(c)); } catch (e) {}
+  }
+  let custom = false;
+  const sh = openSheet(trip ? 'Edytuj' : 'Nowy wyjazd', `
+    ${CONFIG.EVENTS ? '<div class="seg" id="kindSeg"><button type="button" class="chip" data-k="trip">Wyjazd</button><button type="button" class="chip" data-k="life">Wydarzenie z życia</button></div><div id="catBox"></div>' : ''}
+    <label id="tnl">Nazwa wyjazdu<input id="tn" maxlength="80" placeholder="np. Toskania" value="${esc(trip ? trip.name : '')}"></label>
     <div id="dp"></div>
     <label>Okładka (zdjęcie, opcjonalnie)</label>
     <input type="file" id="cv" accept="image/*" hidden>
     <button type="button" class="chip" id="pickcv">${ICON.cam}Wybierz zdjęcie</button> <span class="muted" id="cvname" style="font-size:.85rem"></span>
     ${trip && trip.cover_path ? '<p class="muted" style="margin:8px 0 0;font-size:.85rem">Wybranie nowego zdjęcia zastąpi obecną okładkę.</p>' : ''}
     <p class="status" id="st"></p>`);
+  const titleEl = $('h2', sh.el);
+  function drawKind(){
+    if (!CONFIG.EVENTS) return;
+    sh.el.querySelectorAll('#kindSeg .chip').forEach(b => b.classList.toggle('on', b.dataset.k === kind));
+    const life = kind === 'life';
+    titleEl.textContent = life ? (trip ? 'Edytuj wydarzenie' : 'Nowe wydarzenie') : (trip ? 'Edytuj wyjazd' : 'Nowy wyjazd');
+    $('#tnl', sh.el).firstChild.textContent = life ? 'Nazwa wydarzenia' : 'Nazwa wyjazdu';
+    $('#tn', sh.el).placeholder = life ? 'np. Narodziny Zosi' : 'np. Toskania';
+    const box = $('#catBox', sh.el);
+    if (!life){ box.innerHTML = ''; return; }
+    const all = [...PRESET_CATS, ...known];
+    const inList = all.includes(cat);
+    box.innerHTML = `<label>Kategoria</label><div class="cats">${all.map(c => `<button type="button" class="chip${!custom && c === cat ? ' on' : ''}" data-c="${esc(c)}">${esc(c)}</button>`).join('')}<button type="button" class="chip${custom ? ' on' : ''}" id="cnew">+ Własna</button></div>
+      ${custom ? `<div id="cust"><input id="cname" maxlength="40" placeholder="np. Przeprowadzka" value="${esc(inList ? '' : catParts(cat).name)}" style="margin-top:10px"><div class="emojis">${CAT_EMOJIS.map(e => `<button type="button" data-e="${e}" class="${e === customIcon ? 'on' : ''}">${e}</button>`).join('')}</div></div>` : ''}`;
+    box.querySelectorAll('[data-c]').forEach(b => b.onclick = () => { cat = b.dataset.c; custom = false; drawKind(); });
+    $('#cnew', box).onclick = () => { custom = true; drawKind(); const i = $('#cname', box); if (i) i.focus(); };
+    box.querySelectorAll('[data-e]').forEach(b => b.onclick = () => { const v = $('#cname', box).value; customIcon = b.dataset.e; drawKind(); $('#cname', sh.el).value = v; });
+  }
+  if (CONFIG.EVENTS){
+    if (kind === 'life' && trip && trip.category && !PRESET_CATS.includes(trip.category) && !known.includes(trip.category)) known.push(trip.category);
+    sh.el.querySelectorAll('#kindSeg .chip').forEach(b => b.onclick = () => { kind = b.dataset.k; drawKind(); });
+    drawKind();
+  }
   const picker = makeDatePicker({ date: trip ? trip.date_from : todayStr(), end: trip ? trip.date_to : null, prec: trip ? trip.date_precision : 'day', withEnd: true });
   $('#dp', sh.el).appendChild(picker.el);
   const cv = $('#cv', sh.el);
@@ -568,8 +646,16 @@ function openTripSheet(trip){
   sh.saveBtn.onclick = async () => {
     const name = $('#tn', sh.el).value.trim();
     const d = picker.get();
-    if (!name) return toast('Wpisz nazwę wyjazdu');
-    if (!d.date) return toast('Wybierz datę wyjazdu');
+    if (!name) return toast('Wpisz nazwę');
+    if (!d.date) return toast('Wybierz datę');
+    let category = null;
+    if (kind === 'life'){
+      if (custom){
+        const cn = ($('#cname', sh.el).value || '').trim();
+        if (!cn) return toast('Wpisz nazwę własnej kategorii');
+        category = customIcon + ' ' + cn;
+      } else category = cat;
+    }
     if (d.end && d.end < d.date) return toast('Data końca jest wcześniejsza niż początku');
     sh.saveBtn.disabled = true;
     try {
@@ -582,6 +668,7 @@ function openTripSheet(trip){
         cover_path = np;
       }
       const row = { name, date_from: d.date, date_to: d.end, date_precision: d.prec, cover_path };
+      if (CONFIG.EVENTS){ row.kind = kind; row.category = category; }
       if (trip){ if (author !== trip.created_by) row.edited_by = author; await writeRow('trips', row, trip.id); }
       else { row.created_by = author; await writeRow('trips', row, null); }
       sh.close(); route();
@@ -589,7 +676,7 @@ function openTripSheet(trip){
   };
 }
 async function deleteTrip(trip){
-  if (!confirm(`Usunąć wyjazd „${trip.name}” razem ze wszystkimi wspomnieniami i zdjęciami? Tego nie da się cofnąć.`)) return;
+  if (!confirm(`Usunąć ${noun(trip)} „${trip.name}” razem ze wszystkimi wspomnieniami i zdjęciami? Tego nie da się cofnąć.`)) return;
   const { data: mems } = await sb.from('memories').select('photos').eq('trip_id', trip.id);
   const { error } = await sb.from('trips').delete().eq('id', trip.id);
   if (error) return toast('Nie udało się usunąć: ' + error.message);
@@ -618,15 +705,15 @@ function timelineHtml(mems, urls, edit){
 }
 function heroHtml(trip, urls, count, interactive){
   const cover = urls[trip.cover_path];
-  return `<div class="hero">
+  return `<div class="hero${cover ? ' has-cover' : ''}"${cover ? ` style="background-image:url('${cover}')"` : ''}>
     ${interactive ? `<div class="hero-bar"><a class="rbtn" href="#/" aria-label="Wróć">${ICON.back}</a><button class="rbtn" id="tripMenu" aria-label="Menu">${ICON.dots}</button></div>` : ''}
     <div class="hero-body">
       <div class="hero-txt">
-        <h1><span class="mk">${esc(trip.name)}</span></h1>
-        <div class="hero-dates"><span class="mk mk2">${esc(fmtRange(trip.date_from, trip.date_to, trip.date_precision))}</span></div>
+        ${catBadge(trip, true)}
+        <h1>${esc(trip.name)}</h1>
+        <div class="hero-dates">${esc(fmtRange(trip.date_from, trip.date_to, trip.date_precision))}</div>
         <div class="hero-count">${ICON.photo}${count}</div>
       </div>
-      ${cover ? `<figure class="fr wide hero-fr"><img src="${cover}" alt=""></figure>` : ''}
     </div>
   </div>`;
 }
@@ -675,6 +762,7 @@ async function viewTrip(id){
     } else {
       const rows = [
         ['Nazwa', trip.name],
+        ...(isLife(trip) ? [['Kategoria', catParts(trip.category).icon + ' ' + catParts(trip.category).name]] : []),
         ['Termin', fmtRange(trip.date_from, trip.date_to, trip.date_precision)],
         ['Założone przez', trip.created_by || '—'],
         ['Wpisów', String(all.length)],
@@ -682,7 +770,7 @@ async function viewTrip(id){
       ];
       if (trip.edited_by) rows.push(['Poprawione przez', trip.edited_by]);
       panel.innerHTML = `<div class="info">${rows.map(([a, b]) => `<div class="irow"><span>${esc(a)}</span><span>${esc(b)}</span></div>`).join('')}</div>
-        <div class="info-actions"><button class="chip" id="iEdit">${ICON.pen}edytuj wyjazd</button><button class="chip" id="iExp">${ICON.dl}pobierz na pamiątkę</button>${mine ? `<button class="chip danger" id="iDel">${ICON.trash}usuń wyjazd</button>` : ''}</div>`;
+        <div class="info-actions"><button class="chip" id="iEdit">${ICON.pen}edytuj ${noun(trip)}</button><button class="chip" id="iExp">${ICON.dl}pobierz na pamiątkę</button>${mine ? `<button class="chip danger" id="iDel">${ICON.trash}usuń ${noun(trip)}</button>` : ''}</div>`;
       $('#iEdit').onclick = () => openTripSheet(trip);
       $('#iExp').onclick = e => exportDiary([trip.id], e.currentTarget);
       if (mine) $('#iDel').onclick = () => deleteTrip(trip);
